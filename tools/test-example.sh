@@ -1,0 +1,1 @@
+DEBUG="mmu:*" deno --allow-env --allow-read --allow-write --allow-net src/app.ts -t 1.21.5 "/home/.minecraft/home/Fabric 1.21.4/mods" -o "/home/.minecraft/home/Fabric 1.21.5/mods"

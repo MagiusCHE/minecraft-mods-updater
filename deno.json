@@ -1,0 +1,28 @@
+{
+  "tasks": {
+    "build": "deno compile --allow-read --allow-write --allow-env --allow-net --allow-run --output dist/mmu src/app.ts",
+    "test:win32": "cmd /c tools/test.cmd",
+    "test:linux": "bash tools/test.sh",
+    "test": "deno task run-os test",
+    "run-os": "deno --allow-all tools/run-os.ts"
+  },
+  "imports": {
+    "@cliffy/command": "jsr:@cliffy/command@1.0.0-rc.7",
+    "@scroogieboy/directory-to-object": "jsr:@scroogieboy/directory-to-object@^0.8.2",
+    "@scroogieboy/zip-to-object": "jsr:@scroogieboy/zip-to-object@^0.8.3",
+    "@std/path": "jsr:@std/path@^1.0.8",
+    "@std/toml": "jsr:@std/toml@^1.0.3"
+  },
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "noImplicitReturns": true
+  },
+  "exclude": [
+    "dist/"
+  ],
+  "unstable": [
+    "sloppy-imports"
+  ]
+}

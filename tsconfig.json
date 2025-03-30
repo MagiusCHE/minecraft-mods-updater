@@ -1,0 +1,27 @@
+{
+    "include": [
+        "./src/**/*.ts",
+    ],
+    "exclude": [
+        "./dist/**/*"
+    ],
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+        },
+        "module": "NodeNext",
+        "experimentalDecorators": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strict": true, // Include noImplicitReturns e altre opzioni di strict checking
+        "noImplicitReturns": true,
+        "noEmitOnError": true,
+        "target": "ESNext",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
+        "useDefineForClassFields": false
+    }
+}

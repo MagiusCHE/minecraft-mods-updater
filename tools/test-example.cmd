@@ -1,0 +1,1 @@
+rem Place here test script for win32
