@@ -30,9 +30,11 @@ export class Modrinth extends ModProvider {
         }
         return ret
     }
-    protected override async getModInfoFor(modId: string, targetMCVersion: string, loader: string, originalFullPath?: string): Promise<ModDownloadResult> {
+    protected override async getModInfoFor(modId: string, targetMCVersion: string, loader: string, originalFullPath?: string, resolvedDependencies?: string[]): Promise<ModDownloadResult> {
+
+        resolvedDependencies = resolvedDependencies || [];
         const ret: ModDownloadResult = []
-        let versions = await this.API_GetVersions(modId);
+        const versions = await this.API_GetVersions(modId);
 
         if (!versions) {
             return ret
@@ -51,6 +53,7 @@ export class Modrinth extends ModProvider {
             return ret;
         }
 
+        //log(">> Modrinth: Found version %s for mod %s", version.version_number, modId);
 
         version.files.forEach((f: any) => {
             if (f.url) {
@@ -66,15 +69,19 @@ export class Modrinth extends ModProvider {
         })
 
         for (const dep of version.dependencies) {
-            const depVersions = await this.getModInfoFor(dep.project_id, targetMCVersion, loader);            
-            depVersions?.forEach( f => ret.push(f))
+            if (resolvedDependencies.includes(dep.project_id)) {
+                continue; // already resolved this dependency
+            }
+            resolvedDependencies.push(dep.project_id);
+            const depVersions = await this.getModInfoFor(dep.project_id, targetMCVersion, loader, undefined, resolvedDependencies);
+            depVersions?.forEach(f => ret.push(f))
         }
 
         return ret
     }
 
     private async API_GetVersions(modId: string): Promise<any> {
-        return this.APICall(commands.getVersions.replace(":id", modId));        
+        return this.APICall(commands.getVersions.replace(":id", modId));
     }
 
 }

@@ -11,7 +11,8 @@
     "@scroogieboy/directory-to-object": "jsr:@scroogieboy/directory-to-object@^0.8.2",
     "@scroogieboy/zip-to-object": "jsr:@scroogieboy/zip-to-object@^0.8.3",
     "@std/path": "jsr:@std/path@^1.0.8",
-    "@std/toml": "jsr:@std/toml@^1.0.3"
+    "@std/toml": "jsr:@std/toml@^1.0.3",
+    "debug": "npm:debug@^4.3.7"
   },
   "compilerOptions": {
     "noImplicitAny": true,

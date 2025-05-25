@@ -1,7 +1,7 @@
 import { ModInfo } from "../loader/base.ts";
 import { ModDownloadResult, ModDownloadType, ModProvider } from "./mod_provider.ts";
-import debug from "npm:debug";
-const log = debug('mmu:CourseForge');
+//import debug from "npm:debug";
+//const log = debug('mmu:CourseForge');
 
 const apiEntryPoint = "https://api.curseforge.com/v1";
 

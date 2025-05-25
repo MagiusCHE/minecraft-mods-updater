@@ -1,4 +1,5 @@
 import { ModInfo } from "../loader/base.ts";
+
 import debug from "npm:debug";
 const log = debug('mmu:ModProvider');
 
@@ -40,6 +41,7 @@ export class ModProvider {
             headers: headers,
         };
 
+        //log(">> APICall: %o", url);
         const res = await fetch(url, {
             headers,
         });
@@ -47,7 +49,9 @@ export class ModProvider {
             //throw new Error(`Failed to fetch url ${url}: ${res.statusText}`);
             return undefined
         }
+        //log("<< APICall: %o", res);
         const ret = await res.json();
+        //log("<< APICall JsonRet: %o", ret);
         cache.apiCalls.set(url, ret);
         return ret;
     }

@@ -17,6 +17,7 @@
     "jsr:@zip-js/zip-js@^2.7.58": "2.7.58",
     "npm:@types/node@*": "22.10.5",
     "npm:debug@*": "4.4.0",
+    "npm:debug@^4.3.7": "4.4.0",
     "npm:picomatch@^4.0.2": "4.0.2",
     "npm:typescript@*": "5.7.2"
   },
@@ -258,7 +259,8 @@
       "jsr:@scroogieboy/directory-to-object@~0.8.2",
       "jsr:@scroogieboy/zip-to-object@~0.8.3",
       "jsr:@std/path@^1.0.8",
-      "jsr:@std/toml@^1.0.3"
+      "jsr:@std/toml@^1.0.3",
+      "npm:debug@^4.3.7"
     ]
   }
 }
