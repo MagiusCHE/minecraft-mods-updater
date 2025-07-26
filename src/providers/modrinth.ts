@@ -56,7 +56,7 @@ export class Modrinth extends ModProvider {
         //log(">> Modrinth: Found version %s for mod %s", version.version_number, modId);
 
         version.files.forEach((f: any) => {
-            if (f.url) {
+            if (f.url && !f.filename.endsWith('-sources.jar')) {
                 ret.push({
                     url: f.url as string,
                     fileName: f.filename as string,

@@ -32,6 +32,39 @@ class App {
     async run() {
         log(">> Begin mods update process...");
 
+        // Check if output directory exists and has files
+        try {
+            const outputDirInfo = await Deno.stat(this.options.outputPath);
+            if (outputDirInfo.isDirectory) {
+                // Check if directory has files
+                let hasFiles = false;
+                for await (const entry of Deno.readDir(this.options.outputPath)) {
+                    if (entry.isFile) {
+                        hasFiles = true;
+                        break;
+                    }
+                }
+                
+                if (hasFiles) {
+                    if (!this.options.force) {
+                        // Prompt user for confirmation
+                        const response = prompt(`Output directory "${this.options.outputPath}" already exists and contains files. Do you want to overwrite it? (y/N):`);
+                        if (response?.toLowerCase() !== 'y') {
+                            log("Operation cancelled by user.");
+                            return;
+                        }
+                    }
+                    // Remove and recreate directory
+                    log(" - Removing existing output directory...");
+                    await Deno.remove(this.options.outputPath, { recursive: true });
+                }
+            }
+        } catch (err) {
+            // Directory doesn't exist, which is fine
+            if (!(err instanceof Deno.errors.NotFound)) {
+                throw err;
+            }
+        }
 
         // scan all files in the source path
         log(" - Scan mods source path: %o", this.modsSourcePath);
@@ -170,6 +203,7 @@ class App {
 type MMUOptions = {
     targetVersion: string,
     outputPath: string,
+    force?: boolean,
 }
 
 if (import.meta.main) {
@@ -198,6 +232,7 @@ if (import.meta.main) {
             })
             .option("-t, --target-version <minecraft-version:string>", "Target version: ex: \"1.20.1\"", { default: "latest" })
             .option("-o, --output-path <mods-output-path:string>", "Target mods path to put new mods", { required: true })
+            .option("-f, --force", "Force overwrite output directory without prompting")
             .parse(Deno.args)
     })();
 }
